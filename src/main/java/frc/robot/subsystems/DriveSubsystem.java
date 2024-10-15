@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private final WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(1);
-  private final WPI_TalonSRX frontRightMotor = new WPI_TalonSRX(2);
-  private final WPI_TalonSRX backLeftMotor = new WPI_TalonSRX(1);
+  private final WPI_TalonSRX frontLeftMotor = new WPI_TalonSRX(3);
+  private final WPI_TalonSRX frontRightMotor = new WPI_TalonSRX(1);
+  private final WPI_TalonSRX backLeftMotor = new WPI_TalonSRX(4);
   private final WPI_TalonSRX backRightMotor = new WPI_TalonSRX(2);
   private AHRS navX = new AHRS(Port.kMXP);
   
@@ -31,6 +31,17 @@ public class DriveSubsystem extends SubsystemBase {
     backLeftMotor.set(left);
     backRightMotor.set(right);
   }
+
+  public void arcadeDrive(double y, double x){
+    double left = y + x;
+    double right = y - x;
+    frontLeftMotor.set(left);
+    backLeftMotor.set(left);
+    frontRightMotor.set(right);
+    backRightMotor.set(right);
+    
+  }
+  
   /**
    * Example command factory method.
    *
@@ -48,6 +59,11 @@ public class DriveSubsystem extends SubsystemBase {
 public double getAngle(){
           return navX.getAngle();
         }
+
+        public void resetNavx(){
+  navX.reset();
+}
+
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
